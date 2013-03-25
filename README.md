@@ -1,0 +1,2 @@
+spree-shipping-weight
+=====================
