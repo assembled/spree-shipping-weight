@@ -39,14 +39,12 @@ module Spree
       weight_cost_table = weight_cost_to_hash(self.preferred_weight_cost_values)
 
       if self.preferred_apply_to_individual_items
-        puts "HERE: #{self.preferred_apply_to_individual_items}"
         order.line_items.each do |item|
           item_weight = item.variant.weight || self.preferred_default_weight
           weight_class = weight_cost_table.keys.select { |w| item_weight >= w }.max
           shipping_costs += item.quantity * weight_cost_table[weight_class] 
         end
       else
-        puts "THERE: #{self.preferred_apply_to_individual_items}"
         order.line_items.each do |item|
           item_weight = item.quantity * (item.variant.weight || self.preferred_default_weight)
           weight_class = weight_cost_table.keys.select { |w| item_weight >= w }.max
