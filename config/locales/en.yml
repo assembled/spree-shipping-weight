@@ -1,0 +1,4 @@
+en:
+  weight_rate_per_order: "Weight Rate (per order)"
+  weight_rate_per_item: "Weight Rate (per item)"
+  weight_cost_values: Cost Table (min weight:cost, one per line)
