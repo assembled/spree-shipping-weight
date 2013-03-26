@@ -42,6 +42,11 @@ module Spree
         order.line_items.each do |item|
           item_weight = item.variant.weight || self.preferred_default_weight
           weight_class = weight_cost_table.keys.select { |w| item_weight >= w }.max
+          puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+          puts "item.quantity: #{item.quantity}"
+          puts "weight_class: #{weight_class}"
+          puts "weight_cost_table[weight_class]: #{weight_cost_table[weight_class]}"
+          puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
           shipping_costs += item.quantity * weight_cost_table[weight_class] 
         end
       else
