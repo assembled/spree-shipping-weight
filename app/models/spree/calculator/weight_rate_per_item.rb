@@ -37,23 +37,35 @@ module Spree
       shipping_costs = 0
       
       weight_cost_table = weight_cost_to_hash(self.preferred_weight_cost_values)
-
+      
+      puts "=================== computer_order : weight_rate_per_item ================="
+      puts "order_id: #{order.id}"
+      
       if self.preferred_apply_to_individual_items
         order.line_items.each do |item|
           item_weight = item.variant.weight || self.preferred_default_weight
           weight_class = weight_cost_table.keys.select { |w| item_weight >= w }.max
-          puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+          puts "--------------"
+          puts "item_weight = #{item_weight}"
           puts "item.quantity: #{item.quantity}"
           puts "weight_class: #{weight_class}"
           puts "weight_cost_table[weight_class]: #{weight_cost_table[weight_class]}"
-          puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+          puts "#{weight_cost_table.inspect}"
           shipping_costs += item.quantity * weight_cost_table[weight_class] 
+          puts "shipping costs: #{shipping_costs}"
         end
       else
         order.line_items.each do |item|
           item_weight = item.quantity * (item.variant.weight || self.preferred_default_weight)
           weight_class = weight_cost_table.keys.select { |w| item_weight >= w }.max
+          puts "--------------"
+          puts "item_weight = #{item_weight}"
+          puts "item.quantity: #{item.quantity}"
+          puts "weight_class: #{weight_class}"
+          puts "weight_cost_table[weight_class]: #{weight_cost_table[weight_class]}"
+          puts "#{weight_cost_table.inspect}"
           shipping_costs += weight_cost_table[weight_class]
+          puts "shipping costs: #{shipping_costs}"
         end
       end
 
