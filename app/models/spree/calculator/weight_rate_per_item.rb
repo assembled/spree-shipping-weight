@@ -44,7 +44,8 @@ module Spree
       if self.preferred_apply_to_individual_items
         order.line_items.each do |item|
           item_weight = item.variant.weight || self.preferred_default_weight
-          weight_class = weight_cost_table.keys.select { |w| item_weight >= w }.max
+          weight_class = weight_cost_table.keys.select { |w| item_weight <= w }.min
+          weight_class = weight_cost_table.keys.max if weight_class.nil?
           puts "--------------"
           puts "item_weight = #{item_weight}"
           puts "item.quantity: #{item.quantity}"
@@ -57,7 +58,8 @@ module Spree
       else
         order.line_items.each do |item|
           item_weight = item.quantity * (item.variant.weight || self.preferred_default_weight)
-          weight_class = weight_cost_table.keys.select { |w| item_weight >= w }.max
+          weight_class = weight_cost_table.keys.select { |w| item_weight <= w }.min
+          weight_class = weight_cost_table.keys.max if weight_class.nil?
           puts "--------------"
           puts "item_weight = #{item_weight}"
           puts "item.quantity: #{item.quantity}"

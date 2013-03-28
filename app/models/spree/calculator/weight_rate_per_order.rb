@@ -34,7 +34,8 @@ module Spree
     def compute_order(order)
       total_weight = total_weight(order)
       weight_cost_table = weight_cost_to_hash(self.preferred_weight_cost_values)
-      weight_class = weight_cost_table.keys.select { |w| total_weight >= w }.max
+      weight_class = weight_cost_table.keys.select { |w| total_weight <= w }.min
+      weight_class = weight_cost_table.keys.max if weight_class.nil?
       shipping_costs = weight_cost_table[weight_class]
 
       shipping_costs = 0 if shipping_costs.nil?
