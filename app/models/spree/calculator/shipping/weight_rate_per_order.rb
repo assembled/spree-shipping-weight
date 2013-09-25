@@ -1,6 +1,6 @@
 module Spree
   module Calculator::Shipping
-    class WeightRatePerItem < ShippingCalculator
+    class WeightRatePerOrder < ShippingCalculator
       
       preference :weight_cost_values, :text, :default => "1:5.00\n2:7.00\n5:10.00\n10:15.00\n100:50.00"
       preference :default_weight, :decimal, :default => 1
