@@ -18,6 +18,7 @@ module SpreeShippingWeight
     initializer "spree.register.calculators" do |app|
       app.config.spree.calculators.shipping_methods << Spree::Calculator::WeightRatePerOrder
       app.config.spree.calculators.shipping_methods << Spree::Calculator::WeightRatePerItem
+      app.config.spree.calculators.shipping_methods << Spree::Calculator::FlatRatePerSupplier
     end
 
     config.to_prepare &method(:activate).to_proc
