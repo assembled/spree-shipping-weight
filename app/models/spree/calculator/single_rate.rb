@@ -1,12 +1,12 @@
 module Spree
-  class Calculator::FlatRatePerSupplier < Calculator
+  class Calculator::SingleRate < Calculator
     preference :amount, :decimal, :default => 0
     preference :currency, :string, :default => Spree::Config[:currency]
 
     attr_accessible :preferred_amount, :preferred_currency
 
     def self.description
-      I18n.t :flat_rate_per_supplier
+      I18n.t :single_rate
     end
 
     def self.register
@@ -17,7 +17,7 @@ module Spree
       true
     end
 
-    
+
     def compute(object)
       return 0 if object.nil?
       case object
@@ -31,7 +31,7 @@ module Spree
     private
 
     def compute_order(order)
-      self.preferred_amount# * order.suppliers.count
+      self.preferred_amount / order.suppliers.count
     end
   end
 end

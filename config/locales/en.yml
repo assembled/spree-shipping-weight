@@ -3,3 +3,4 @@ en:
   weight_rate_per_item: "Weight Rate (per item)"
   weight_cost_values: Cost Table (min weight:cost, one per line)
   flat_rate_per_supplier: "Flat Rate (per supplier)"
+  single_rate: "Single Rate"
